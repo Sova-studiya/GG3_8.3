@@ -89,6 +89,9 @@ input[type=text]:focus{border-color:var(--s)}
 .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--s),var(--a));border-radius:999px;transition:width .4s}
 .tlabel{font-family:Unbounded;font-size:12px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .chip{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;background:var(--card2);color:var(--text);letter-spacing:0;text-transform:none;font-family:Manrope}
+.mkr{display:inline-flex;align-items:center;gap:6px;background:rgba(61,224,255,.12);border:1.5px solid rgba(61,224,255,.55);color:var(--s);font-family:Manrope;font-weight:800;font-size:15px;letter-spacing:0;text-transform:none;padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.mkr small{color:var(--muted);font-weight:700;font-size:12px}
+.mkw{color:var(--s);font-weight:800;border-bottom:2px dotted var(--s)}
 .chip.rq{background:rgba(255,178,61,.18);color:var(--v)}
 .statement{font-size:18px;color:var(--muted);margin-bottom:12px;line-height:1.5}
 .statement b,.statement .tgt{color:#fff;background:rgba(255,230,0,.18);border-bottom:3px solid #ffe600;padding:0 4px;border-radius:4px}
@@ -271,74 +274,74 @@ const TENSE = {
 
 // Mission 1 – helper hunt
 const HELPER = [
- {st:'Mrs Q is staying with Doctor Q.',q:'Why ___ Mrs Q staying with him?',a:'is',t:'PC'},
- {st:'Doctor Q works in his lab every day.',q:'Where ___ Doctor Q work?',a:'does',t:'PS'},
- {st:'Rob and Millie went to the park yesterday.',q:'Where ___ Rob and Millie go yesterday?',a:'did',t:'PaS'},
- {st:"I'm calling Doctor Spark.",q:'Who ___ you calling?',a:'are',t:'PC'},
- {st:'Millie was making breakfast at 8 a.m.',q:'What ___ Millie doing at 8 a.m.?',a:'was',t:'PaC'},
- {st:'Doctor Q will rest at four o\'clock.',q:'When ___ Doctor Q rest?',a:'will',t:'W'},
- {st:'Rob and Pi are going to travel to the Arctic.',q:'Where ___ Rob and Pi going to travel?',a:'are',t:'G'},
- {st:'My friends play Minecraft after school.',q:'When ___ your friends play Minecraft?',a:'do',t:'PS'},
- {st:'Mrs Q called her son last night.',q:'Who ___ Mrs Q call last night?',a:'did',t:'PaS'},
- {st:'The kids were watching a film at 6 p.m.',q:'What ___ the kids watching at 6 p.m.?',a:'were',t:'PaC'},
- {st:"She's going to buy new trainers.",q:'What ___ she going to buy?',a:'is',t:'G'},
- {st:"I'll live in Berlin one day.",q:'Where ___ you live one day?',a:'will',t:'W'},
- {st:'Pi gets up at 7 o\'clock.',q:'What time ___ Pi get up?',a:'does',t:'PS'},
- {st:"I'm going to be a famous blogger.",q:'What ___ you going to be?',a:'am',t:'G'},
- {st:'Doctor Q slept for two hours.',q:'How many hours ___ Doctor Q sleep?',a:'did',t:'PaS'},
- {st:'Doctor Q was sleeping when the phone rang.',q:'What ___ Doctor Q doing when the phone rang?',a:'was',t:'PaC'}
+ {st:'Mrs Q is staying with Doctor Q this week.',q:'Why ___ Mrs Q staying with him this week?',a:'is',t:'PC',mk:'this week'},
+ {st:'Doctor Q works in his lab every day.',q:'Where ___ Doctor Q work every day?',a:'does',t:'PS',mk:'every day'},
+ {st:'Rob and Millie went to the park yesterday.',q:'Where ___ Rob and Millie go yesterday?',a:'did',t:'PaS',mk:'yesterday'},
+ {st:"I'm calling Doctor Spark now.",q:'Who ___ you calling now?',a:'are',t:'PC',mk:'now'},
+ {st:'Millie was making breakfast at 8 a.m. yesterday.',q:'What ___ Millie doing at 8 a.m. yesterday?',a:'was',t:'PaC',mk:'at 8 a.m. yesterday'},
+ {st:'Doctor Q will rest tomorrow.',q:'When ___ Doctor Q rest tomorrow?',a:'will',t:'W',mk:'tomorrow'},
+ {st:'Rob and Pi are going to travel to the Arctic next summer.',q:'Where ___ Rob and Pi going to travel next summer?',a:'are',t:'G',mk:'next summer (план)'},
+ {st:'My friends usually play Minecraft after school.',q:'When ___ your friends usually play Minecraft?',a:'do',t:'PS',mk:'usually'},
+ {st:'Mrs Q called her son last night.',q:'Who ___ Mrs Q call last night?',a:'did',t:'PaS',mk:'last night'},
+ {st:'The kids were watching a film at 6 p.m. yesterday.',q:'What ___ the kids watching at 6 p.m. yesterday?',a:'were',t:'PaC',mk:'at 6 p.m. yesterday'},
+ {st:"She's going to buy new trainers next week.",q:'What ___ she going to buy next week?',a:'is',t:'G',mk:'next week (план)'},
+ {st:"I'll live in Berlin one day.",q:'Where ___ you live one day?',a:'will',t:'W',mk:'one day'},
+ {st:"Pi gets up at 7 o'clock every morning.",q:'What time ___ Pi get up every morning?',a:'does',t:'PS',mk:'every morning'},
+ {st:"I'm going to be a famous blogger when I grow up.",q:'What ___ you going to be when you grow up?',a:'am',t:'G',mk:'when I grow up (план)'},
+ {st:'Doctor Q slept for two hours last night.',q:'How many hours ___ Doctor Q sleep last night?',a:'did',t:'PaS',mk:'last night'},
+ {st:'Doctor Q was sleeping yesterday when the phone rang.',q:'What ___ Doctor Q doing yesterday when the phone rang?',a:'was',t:'PaC',mk:'yesterday, when the phone rang'}
 ];
 
 // Mission 2 – builder.  role: q a s v x
 const BUILD = [
- {w:'What:q|was:a|Doctor Q:s|doing:v|at eleven o\'clock:x',t:'PaC',d:'were:a'},
- {w:'What time:q|will:a|Mrs Q:s|arrive:v|at Doctor Q\'s house:x',t:'W',d:'arrives:v'},
- {w:'Why:q|is:a|Mrs Q:s|going to:v|stay:v|with Doctor Q:x',t:'G',d:'does:a'},
- {w:'Where:q|are:a|Doctor Q and Mrs Q:s|having:v|lunch:x',t:'PC',d:'is:a'},
- {w:'What:q|does:a|Mrs Q:s|want:v|to do:x',t:'PS',d:'wants:v'},
- {w:'How many hours:q|did:a|Doctor Q:s|sleep:v',t:'PaS',d:'slept:v'},
- {w:'How often:q|do:a|you:s|exercise:v',t:'PS',d:'does:a'},
- {w:'When:q|are:a|you:s|going to:v|open:v|it:x',t:'G',d:'will:a'},
- {w:'What:q|were:a|you:s|doing:v|at 9 p.m. yesterday:x',t:'PaC',d:'did:a'},
- {w:'Where:q|will:a|you:s|live:v|in fifteen years:x',t:'W',d:'are:a'},
- {w:'What:q|do:a|your friends:s|play:v|after school:x',t:'PS',d:'does:a'},
- {w:'Why:q|is:a|your sister:s|laughing:v',t:'PC',d:'does:a'},
- {w:'Where:q|did:a|you:s|go:v|last summer:x',t:'PaS',d:'went:v'}
+ {w:'What:q|was:a|Doctor Q:s|doing:v|at eleven o\'clock yesterday:x',t:'PaC',d:'were:a',mk:'at eleven o\'clock yesterday'},
+ {w:'What time:q|will:a|Mrs Q:s|arrive:v|tomorrow:x',t:'W',d:'arrives:v',mk:'tomorrow'},
+ {w:'Why:q|is:a|Mrs Q:s|going to:v|stay:v|with Doctor Q:x',t:'G',d:'does:a',mk:'план на следующую неделю'},
+ {w:'Where:q|are:a|Doctor Q and Mrs Q:s|having:v|lunch:x|now:x',t:'PC',d:'is:a',mk:'now'},
+ {w:'What:q|does:a|Mrs Q:s|usually:x|want:v|to do:x',t:'PS',d:'wants:v',mk:'usually'},
+ {w:'How many hours:q|did:a|Doctor Q:s|sleep:v|last night:x',t:'PaS',d:'slept:v',mk:'last night'},
+ {w:'How often:q|do:a|you:s|exercise:v',t:'PS',d:'does:a',mk:'how often → регулярно'},
+ {w:'When:q|are:a|you:s|going to:v|open:v|it:x',t:'G',d:'will:a',mk:'план'},
+ {w:'What:q|were:a|you:s|doing:v|at 9 p.m. yesterday:x',t:'PaC',d:'did:a',mk:'at 9 p.m. yesterday'},
+ {w:'Where:q|will:a|you:s|live:v|in fifteen years:x',t:'W',d:'are:a',mk:'in fifteen years'},
+ {w:'What:q|do:a|your friends:s|play:v|after school every day:x',t:'PS',d:'does:a',mk:'every day'},
+ {w:'Why:q|is:a|your sister:s|laughing:v|right now:x',t:'PC',d:'does:a',mk:'right now'},
+ {w:'Where:q|did:a|you:s|go:v|last summer:x',t:'PaS',d:'went:v',mk:'last summer'}
 ];
 
 // Mission 3 – who lab.  k: 's' subject / 'o' object
 const WHO = [
- {pre:'',tg:'Mrs Q',post:' called Doctor Q.',k:'s',ok:'Who called Doctor Q?',bad:['Who did call Doctor Q?','Who did Mrs Q call?']},
- {pre:'Mrs Q called ',tg:'Doctor Q',post:'.',k:'o',ok:'Who did Mrs Q call?',bad:['Who called Mrs Q?','Who Mrs Q called?']},
- {pre:'',tg:'Emily',post:' invited Rob to stay.',k:'s',ok:'Who invited Rob to stay?',bad:['Who did invite Rob to stay?','Who did Emily invite?']},
- {pre:'Poppy visited ',tg:'George',post:' yesterday.',k:'o',ok:'Who did Poppy visit yesterday?',bad:['Who visited George yesterday?','Who Poppy visited yesterday?']},
- {pre:'',tg:'Fred',post:' saw them at the park.',k:'s',ok:'Who saw them at the park?',bad:['Who did see them at the park?','Who did Fred see at the park?']},
- {pre:'Grandma kissed ',tg:'Sophie',post:'.',k:'o',ok:'Who did Grandma kiss?',bad:['Who kissed Sophie?','Who did Grandma kissed?']},
- {pre:'',tg:'Millie',post:' gave Rob a hug.',k:'s',ok:'Who gave Rob a hug?',bad:['Who did give Rob a hug?','Who did Millie give a hug to?']},
- {pre:'Rob loves ',tg:'Millie',post:'.',k:'o',ok:'Who does Rob love?',bad:['Who loves Millie?','Who does Rob loves?']},
- {pre:'',tg:'My mum',post:' makes the best pizza.',k:'s',ok:'Who makes the best pizza?',bad:['Who does make the best pizza?','Who do make the best pizza?']},
- {pre:'Doctor Q is calling ',tg:'Doctor Spark',post:'.',k:'o',ok:'Who is Doctor Q calling?',bad:['Who is calling Doctor Spark?','Who Doctor Q is calling?']},
- {pre:'',tg:'Doctor Spark',post:' is visiting Doctor Q today.',k:'s',ok:'Who is visiting Doctor Q today?',bad:['Who does visit Doctor Q today?','Who is Doctor Spark visiting today?']},
- {pre:'',tg:'The Queen',post:' woke me up today.',k:'s',ok:'Who woke you up today?',bad:['Who did wake you up today?','Who did the Queen wake up?']},
- {pre:'Mrs Q will visit ',tg:'her sister',post:' next week.',k:'o',ok:'Who will Mrs Q visit next week?',bad:['Who will visit her sister next week?','Who Mrs Q will visit next week?']},
- {pre:'',tg:'Pi',post:' was talking to Doctor Q.',k:'s',ok:'Who was talking to Doctor Q?',bad:['Who did talk to Doctor Q?','Who was Pi talking to?']}
+ {pre:'',tg:'Mrs Q',post:' called Doctor Q yesterday.',k:'s',ok:'Who called Doctor Q yesterday?',bad:['Who did call Doctor Q yesterday?','Who did Mrs Q call yesterday?'],mk:'yesterday'},
+ {pre:'Mrs Q called ',tg:'Doctor Q',post:' yesterday.',k:'o',ok:'Who did Mrs Q call yesterday?',bad:['Who called Mrs Q yesterday?','Who Mrs Q called yesterday?'],mk:'yesterday'},
+ {pre:'',tg:'Emily',post:' invited Rob to stay last week.',k:'s',ok:'Who invited Rob to stay last week?',bad:['Who did invite Rob to stay last week?','Who did Emily invite last week?'],mk:'last week'},
+ {pre:'Poppy visited ',tg:'George',post:' yesterday.',k:'o',ok:'Who did Poppy visit yesterday?',bad:['Who visited George yesterday?','Who Poppy visited yesterday?'],mk:'yesterday'},
+ {pre:'',tg:'Fred',post:' saw them at the park on Sunday.',k:'s',ok:'Who saw them at the park on Sunday?',bad:['Who did see them at the park on Sunday?','Who did Fred see at the park on Sunday?'],mk:'on Sunday (прошлое)'},
+ {pre:'Grandma kissed ',tg:'Sophie',post:' this morning.',k:'o',ok:'Who did Grandma kiss this morning?',bad:['Who kissed Sophie this morning?','Who did Grandma kissed this morning?'],mk:'this morning (уже прошло)'},
+ {pre:'',tg:'Millie',post:' gave Rob a hug yesterday.',k:'s',ok:'Who gave Rob a hug yesterday?',bad:['Who did give Rob a hug yesterday?','Who did Millie give a hug to yesterday?'],mk:'yesterday'},
+ {pre:'Rob always helps ',tg:'Millie',post:'.',k:'o',ok:'Who does Rob always help?',bad:['Who always helps Millie?','Who does Rob always helps?'],mk:'always'},
+ {pre:'',tg:'My mum',post:' makes pizza every Sunday.',k:'s',ok:'Who makes pizza every Sunday?',bad:['Who does make pizza every Sunday?','Who do make pizza every Sunday?'],mk:'every Sunday'},
+ {pre:'Doctor Q is calling ',tg:'Doctor Spark',post:' now.',k:'o',ok:'Who is Doctor Q calling now?',bad:['Who is calling Doctor Spark now?','Who Doctor Q is calling now?'],mk:'now'},
+ {pre:'',tg:'Doctor Spark',post:' is visiting Doctor Q at the moment.',k:'s',ok:'Who is visiting Doctor Q at the moment?',bad:['Who does visit Doctor Q at the moment?','Who is Doctor Spark visiting at the moment?'],mk:'at the moment'},
+ {pre:'',tg:'The Queen',post:' woke me up this morning.',k:'s',ok:'Who woke you up this morning?',bad:['Who did wake you up this morning?','Who did the Queen wake up this morning?'],mk:'this morning (уже прошло)'},
+ {pre:'Mrs Q will visit ',tg:'her sister',post:' next week.',k:'o',ok:'Who will Mrs Q visit next week?',bad:['Who will visit her sister next week?','Who Mrs Q will visit next week?'],mk:'next week'},
+ {pre:'',tg:'Pi',post:' was talking to Doctor Q at 5 p.m. yesterday.',k:'s',ok:'Who was talking to Doctor Q at 5 p.m. yesterday?',bad:['Who did talk to Doctor Q at 5 p.m. yesterday?','Who was Pi talking to at 5 p.m. yesterday?'],mk:'at 5 p.m. yesterday'}
 ];
 
 // Mission 4 – answer → question (typed). qw = question word(s), aux = helper
 const TYPE = [
- {b:'I want to <b>play football</b>.',cue:'what / you / want / to do',acc:['what do you want to do'],qw:'what',aux:'do'},
- {b:"I'm calling <b>my grandma</b>.",cue:'who / you / call',acc:['who are you calling'],qw:'who',aux:'are'},
- {b:'They arrived <b>two hours ago</b>.',cue:'when / they / arrive',acc:['when did they arrive'],qw:'when',aux:'did'},
- {b:"I'll live <b>in Berlin</b>.",cue:'where / you / live',acc:['where will you live'],qw:'where',aux:'will'},
- {b:'<b>Emily</b> invited us to stay.',cue:'who / invite / you / to stay',acc:['who invited you to stay','who invited you'],qw:'who',aux:null,subj:true},
- {b:'Poppy visited <b>George</b> yesterday.',cue:'who / Poppy / visit / yesterday',acc:['who did poppy visit yesterday','who did poppy visit'],qw:'who',aux:'did'},
- {b:'I get up <b>at 7 o\'clock</b>.',cue:'what time / you / get up',acc:['what time do you get up'],qw:'what time',aux:'do'},
- {b:"She's crying <b>because she lost her phone</b>.",cue:'why / she / cry',acc:['why is she crying'],qw:'why',aux:'is'},
- {b:'We were <b>playing basketball</b> at 5 p.m.',cue:'what / you / do / at 5 p.m.',acc:['what were you doing at 5 pm','what were you doing'],qw:'what',aux:'were'},
- {b:'Mrs Q is going to stay <b>for two weeks</b>.',cue:'how long / Mrs Q / going to / stay',acc:['how long is mrs q going to stay'],qw:'how long',aux:'is'},
- {b:'<b>Doctor Q</b> ate all the cake!',cue:'who / eat / all the cake',acc:['who ate all the cake'],qw:'who',aux:null,subj:true},
- {b:'My brother plays <b>computer games</b> every day.',cue:'what / your brother / play / every day',acc:['what does your brother play every day','what does your brother play'],qw:'what',aux:'does'},
- {b:'<b>Millie</b> is making breakfast.',cue:'who / make / breakfast',acc:['who is making breakfast'],qw:'who',aux:null,subj:true}
+ {b:'I usually want to <b>play football</b> after school.',cue:'what / you / usually / want / to do / after school',acc:['what do you usually want to do after school','what do you usually want to do','what do you want to do after school','what do you want to do'],qw:'what',aux:'do',mk:'usually'},
+ {b:"I'm calling <b>my grandma</b> now.",cue:'who / you / call / now',acc:['who are you calling now','who are you calling'],qw:'who',aux:'are',mk:'now'},
+ {b:'They arrived <b>two hours ago</b>.',cue:'when / they / arrive',acc:['when did they arrive'],qw:'when',aux:'did',mk:'ago'},
+ {b:"I'll live <b>in Berlin</b> one day.",cue:'where / you / live / one day',acc:['where will you live one day','where will you live'],qw:'where',aux:'will',mk:'one day'},
+ {b:'<b>Emily</b> invited us to stay last week.',cue:'who / invite / you / to stay / last week',acc:['who invited you to stay last week','who invited you to stay','who invited you last week','who invited you'],qw:'who',aux:null,subj:true,mk:'last week'},
+ {b:'Poppy visited <b>George</b> yesterday.',cue:'who / Poppy / visit / yesterday',acc:['who did poppy visit yesterday','who did poppy visit'],qw:'who',aux:'did',mk:'yesterday'},
+ {b:'I get up <b>at 7 o\'clock</b> every day.',cue:'what time / you / get up / every day',acc:['what time do you get up every day','what time do you get up'],qw:'what time',aux:'do',mk:'every day'},
+ {b:"She's crying now <b>because she lost her phone</b>.",cue:'why / she / cry / now',acc:['why is she crying now','why is she crying'],qw:'why',aux:'is',mk:'now'},
+ {b:'We were <b>playing basketball</b> at 5 p.m. yesterday.',cue:'what / you / do / at 5 p.m. yesterday',acc:['what were you doing at 5 pm yesterday','what were you doing yesterday at 5 pm','what were you doing at 5 pm','what were you doing'],qw:'what',aux:'were',mk:'at 5 p.m. yesterday'},
+ {b:'Mrs Q is going to stay <b>for two weeks</b> next month.',cue:'how long / Mrs Q / going to / stay / next month',acc:['how long is mrs q going to stay next month','how long is mrs q going to stay'],qw:'how long',aux:'is',mk:'next month (план)'},
+ {b:'<b>Doctor Q</b> ate all the cake yesterday!',cue:'who / eat / all the cake / yesterday',acc:['who ate all the cake yesterday','who ate all the cake'],qw:'who',aux:null,subj:true,mk:'yesterday'},
+ {b:'My brother plays <b>computer games</b> every day.',cue:'what / your brother / play / every day',acc:['what does your brother play every day','what does your brother play'],qw:'what',aux:'does',mk:'every day'},
+ {b:'<b>Millie</b> is making breakfast at the moment.',cue:'who / make / breakfast / at the moment',acc:['who is making breakfast at the moment','who is making breakfast'],qw:'who',aux:null,subj:true,mk:'at the moment'}
 ];
 
 // Mission 5 – bug hunter
@@ -543,12 +546,12 @@ function result(correct,fbHTML,auto){
     if(combo===3||combo===5||combo===10) toast(`🔥 Комбо x${combo}!`);
   } else {
     combo=0;beep('bad');
-    G.queue.push({...it,_retry:true});
+    if((it._n||0)<2) G.queue.push({...it,_retry:true,_n:(it._n||0)+1});
   }
   G.done++;save();upd();
   const fb=document.createElement('div');
   fb.className='fb show '+(correct?'good':'oops');
-  fb.innerHTML=`<div class="fbrow"><img class="ava fade" src="${correct?IMG.bot_yay:IMG.bot_hmm}" alt=""><div style="flex:1;min-width:0"><div class="h">${correct?pick(PRAISE):pick(OOPS)}</div>${fbHTML||''}${!correct?'<div style="margin-top:8px;font-size:13px;color:var(--v)">↻ Это задание вернётся в конце миссии</div>':''}</div></div>`;
+  fb.innerHTML=`<div class="fbrow"><img class="ava fade" src="${correct?IMG.bot_yay:IMG.bot_hmm}" alt=""><div style="flex:1;min-width:0"><div class="h">${correct?pick(PRAISE):pick(OOPS)}</div>${fbHTML||''}${!correct&&(it._n||0)<2?'<div style="margin-top:8px;font-size:13px;color:var(--v)">↻ Это задание вернётся в конце миссии</div>':''}</div></div>`;
   const task=$('task');task.appendChild(fb);
   const nr=document.createElement('div');nr.className='nextrow';
   nr.innerHTML=`<button class="big" id="nextBtn">Дальше →</button>`;
@@ -559,6 +562,9 @@ function result(correct,fbHTML,auto){
 document.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&$('nextBtn')&&document.activeElement.tagName!=='INPUT'){e.preventDefault();$('nextBtn').click()}
 });
+function mkChip(it){return it.mk?`<div class="mkr">⏱ ${it.mk} <small>маркер времени</small></div>`:''}
+function mkWhy(it){return it.mk?`<span class="mkw">⏱ ${it.mk}</span> → `:''}
+function hlMk(text,it){if(!it.mk)return text;const m=it.mk.replace(/\s*\(.*\)$/,'');const i=text.toLowerCase().indexOf(m.toLowerCase());return i<0||!/[a-z]/i.test(m)?text:text.slice(0,i)+`<span class="mkw">${text.slice(i,i+m.length)}</span>`+text.slice(i+m.length)}
 function retryChip(it){return it._retry?'<span class="chip rq">↻ повтор</span>':''}
 
 /* ---------- 1 helper ---------- */
@@ -566,7 +572,8 @@ function rHelper(it,el){
   const rows=[['do','does','did'],['am','is','are'],['was','were','will']];
   el.innerHTML=`
    <div class="tlabel">Найди помощника ${retryChip(it)}</div>
-   <div class="statement">${it.st}</div>
+   ${mkChip(it)}
+   <div class="statement">${hlMk(it.st,it)}</div>
    <div class="qframe">${it.q.replace('___','<span class="blank" id="bl">?</span>')}</div>
    <div class="auxgrid">${rows.map((r,i)=>r.map(w=>`<button class="aux r${i+1}" data-w="${w}">${w}</button>`).join('')).join('')}</div>`;
   el.querySelectorAll('.aux').forEach(b=>b.onclick=()=>{
@@ -576,7 +583,7 @@ function rHelper(it,el){
     b.classList.add(ok?'ok-bg':'bad-bg', ok?'pop':'shake');
     if(!ok) el.querySelector(`[data-w="${it.a}"]`).classList.add('ok-bg');
     const t=TENSE[it.t];
-    result(ok,`<div class="why"><span class="chip">${t.n}</span> ${t.why}</div>`);
+    result(ok,`<div class="why">${mkWhy(it)}<span class="chip">${t.n}</span> ${t.why}</div>`);
   });
 }
 
@@ -590,6 +597,7 @@ function rBuild(it,el){
     el.innerHTML=`
      <div class="tlabel">Собери вопрос ${retryChip(it)} <span class="spacer" style="flex:1"></span>
        <button class="toggle" id="tg">${S.mono?'🎨 Цвета: выкл (хард)':'🎨 Цвета: вкл'}</button></div>
+     ${mkChip(it)}
      <div class="answerline ${S.mono?'mono':''}" id="al">${ans.length?ans.map(t=>`<button class="tile t-${t.r}" data-id="${t.id}">${t.w}</button>`).join(''):'<span class="ph">Нажимай на кусочки по порядку: В → П → К → Г</span>'}<span class="qmark">?</span></div>
      <div class="pool ${S.mono?'mono':''}">${pool.filter(t=>!ans.includes(t)).map(t=>`<button class="tile t-${t.r}" data-id="${t.id}">${t.w}</button>`).join('')}</div>
      <div class="nextrow" style="justify-content:space-between"><button class="big ghost" id="clr">Сброс</button><button class="big" id="chk" ${ans.length?'':'disabled'}>Проверить</button></div>`;
@@ -609,7 +617,7 @@ function rBuild(it,el){
     const t=TENSE[it.t];
     let extra='';
     if(!ok&&it.d){const d=parseTiles(it.d)[0];if(ans.some(a=>a.w===d.w)) extra=`<div class="why" style="margin-top:6px">Лишняя деталь была <b>«${d.w}»</b> — в вопрос её брать нельзя.</div>`}
-    result(ok,`${ok?'':`<div class="right">${colored}</div>`}<div class="why"><span class="chip">${t.n}</span> ${t.why}</div>${extra}`);
+    result(ok,`${ok?'':`<div class="right">${colored}</div>`}<div class="why">${mkWhy(it)}<span class="chip">${t.n}</span> ${t.why}</div>${extra}`);
   }
   draw();
 }
@@ -620,6 +628,7 @@ function rWho(it,el){
   let step1ok=null;
   el.innerHTML=`
    <div class="tlabel">Who: Кто или Кого? ${retryChip(it)}</div>
+   ${mkChip(it)}
    <div class="statement" style="font-size:22px;color:var(--text)">${it.pre}<span class="tgt">${it.tg}</span>${it.post}</div>
    <div id="s1"><div class="step">Шаг 1. Выделенное слово — это… <span>(спроси по-русски: «кто?» или «кого/кому?»)</span></div>
      <div class="two"><button class="opt" data-k="s">🙋 КТО делает<br><span style="font-size:13px;color:var(--muted)">подлежащее</span></button><button class="opt" data-k="o">🎯 КОГО / КОМУ<br><span style="font-size:13px;color:var(--muted)">дополнение</span></button></div></div>
@@ -684,6 +693,7 @@ const PAST=['went','saw','ate','came','took','made','gave','woke','called','invi
 function rType(it,el){
   el.innerHTML=`
    <div class="tlabel">Ответ → Вопрос ${retryChip(it)}</div>
+   ${mkChip(it)}
    <div class="dlg"><div><span class="who">A:</span><span style="color:var(--muted)">______________?</span></div><div><span class="who">B:</span>${it.b}</div></div>
    <div class="cue">Подсказка-слова: <b style="color:var(--text)">${it.cue}</b></div>
    <div class="typerow"><input type="text" id="inp" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Напиши вопрос…"><button class="big" id="chk">Проверить</button></div>
@@ -705,6 +715,7 @@ function rType(it,el){
       else if(tk.includes('did')&&tk.some(w=>PAST.includes(w))) diag='После <span class="ca">did</span> глагол в 1-й форме, без -ed.';
       else if(tk.includes('does')&&tk.some((w,i)=>i>qwN+1&&/[^s]s$/.test(w)&&w!=='games'&&w!=='this')) diag='После <span class="ca">does</span> глагол без -s.';
       else diag='Сравни свой вариант с правильным — где отличие?';
+      if(it.mk) diag=`${mkWhy(it)}${it.subj?'вопрос к подлежащему':'помощник <span class="ca">'+it.aux+'</span>'}. `+diag;
     }
     const right=cap(it.acc[0])+'?';
     result(ok,ok?`<div class="why">${cap(it.acc[0])}? — именно так.</div>`:`<div class="why">Ты написал: <s style="opacity:.7">${esc(inp.value)}</s></div><div class="right">${right}</div><div class="why">${diag}</div>`);
